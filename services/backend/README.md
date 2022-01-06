@@ -1,0 +1,3 @@
+# Strategy Browsergame
+
+Readme follows
