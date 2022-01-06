@@ -1,7 +1,7 @@
 # For more information: https://laravel.com/docs/sail
 version: '3'
 services:
-    laravel.backend:
+    backend:
         build:
             context: ./docker/8.1
             dockerfile: Dockerfile
@@ -83,7 +83,7 @@ services:
             - '/dev/shm:/dev/shm'
         networks:
             - sail
-    webgame-mongodb:
+    mongodb:
         image: 'mongo:4.4'
         restart: always
         environment:
