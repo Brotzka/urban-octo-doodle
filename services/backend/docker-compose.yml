@@ -84,16 +84,16 @@ services:
         networks:
             - sail
     webgame-mongodb:
-        image: mongo
-        container_name: webgame-mongodb
+        image: 'mongo:4.4'
+        restart: always
         environment:
-            - PUID=1000
-            - PGID=1000
+            MONGO_INITDB_ROOT_USERNAME: '${DB_USERNAME}'
+            MONGO_INITDB_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MONGO_INITDB_DATABASE: '${DB_DATABASE}'
         volumes:
-            - ./mongo-db:/data/db
-        ports:
-            - 27017:27017
-        restart: unless-stopped
+            - 'sailmongo:/data/db'
+        networks:
+            - sail
 
 networks:
     sail:
@@ -105,3 +105,6 @@ volumes:
         driver: local
     sailmeilisearch:
         driver: local
+    sailmongo:
+        driver: local
+
