@@ -1,5 +1,8 @@
 module.exports = {
   devServer: {
-    host: 'webgame.test'
-  }
+    host: "webgame.test"
+  },
+  transpileDependencies: [
+    'vuetify'
+  ]
 }
