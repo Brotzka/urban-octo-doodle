@@ -1,18 +1,21 @@
 import Vue from "vue"
 import Vuex from "vuex"
 
+import actions from './actions';
+import getters from './getters';
+import mutations from './mutations';
+
 Vue.use (Vuex)
 
-// Foo
 const store = new Vuex.Store ({
   state: {
-    count: 0
-  },
-  mutations: {
-    increment (state) {
-      state.count++
+    auth: {
+      loggedIn: false
     }
-  }
+  },
+  mutations,
+  actions,
+  getters
 })
 
 export default store
