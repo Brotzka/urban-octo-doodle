@@ -1,12 +1,39 @@
 <template>
-  <div id="app">
-    <div id="nav">
+  <v-app>
 
-    </div>
-    <router-view/>
-  </div>
+    <v-app-bar
+        v-if="isLoggedIn"
+        app
+        color="primary"
+    >
+    </v-app-bar>
+    <v-main>
+      <v-container>
+        <HelloWorld/>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
-<style lang="scss">
+<script>
+import HelloWorld from './components/HelloWorld';
+import store from './store/store'
 
-</style>
+export default {
+  name: 'App',
+
+  components: {
+    HelloWorld,
+  },
+
+  data: () => ({
+    //
+  }),
+
+  computed: {
+    isLoggedIn: () => {
+      return store.getters.isLoggedIn
+    }
+  }
+};
+</script>
