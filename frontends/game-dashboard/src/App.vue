@@ -8,23 +8,18 @@
     >
     </v-app-bar>
     <v-main>
-      <v-container>
-        <HelloWorld/>
-      </v-container>
+        <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
 import store from './store/store'
 
 export default {
   name: 'App',
 
-  components: {
-    HelloWorld,
-  },
+  components: {},
 
   data: () => ({
     //

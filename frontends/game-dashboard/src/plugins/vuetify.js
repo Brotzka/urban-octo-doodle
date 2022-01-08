@@ -15,7 +15,8 @@ export default new Vuetify ({
         error: colors.red.base,
         warning: colors.orange.base,
         info: colors.blue.base,
-        success: colors.green.base
+        success: colors.green.base,
+        anchor: colors.blueGrey.base,
       }
     }
   }
