@@ -9,7 +9,7 @@
           elevation="2"
           outlined
       >
-        <v-card-title>Login</v-card-title>
+        <v-card-title>Register</v-card-title>
         <v-card-text>
 
           <v-row>
@@ -23,6 +23,13 @@
                   required
               >
               </v-text-field>
+
+              <v-text-field
+                  v-model="email"
+                  :rules="emailRules"
+                  label="E-mail"
+                  required
+              ></v-text-field>
 
               <v-text-field
                   v-model="password"
@@ -40,13 +47,13 @@
               class="mr-4"
               @click="submit"
           >
-            Log in
+            Register
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-form>
 
-    <v-btn text to="/register">Stattdessen registrieren</v-btn>
+    <v-btn text to="/login">Stattdessen anmelden</v-btn>
   </v-container>
 </template>
 
@@ -58,11 +65,18 @@ export default {
     return {
       username: "",
       usernameRules: [
-        v => !!v || 'Username is required'
+        v => !!v || 'Username is required',
+        v => v.length > 5 || 'Username must be longer than 5 characters'
       ],
       password: "",
       passwordRules: [
-        v => !!v || 'Password is required'
+        v => !!v || 'Password is required',
+        v => v.length > 10 || 'Password must be longer than 10 characters'
+      ],
+      email: "",
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test (v) || 'E-mail must be valid',
       ],
       formIsValid: true
     }
@@ -72,8 +86,21 @@ export default {
     submit () {
       this.formIsValid = this.$refs.loginForm.validate ()
 
-      console.log ("Submit")
+      this.$http.get ('/sanctum/csrf-cookie').then (response => {
+
+        console.log ("Cookie: ", response)
+
+        this.$http.post ('register', {
+          username: this.username,
+          email: this.email,
+          password: this.password
+        })
+      })
     }
+  },
+
+  mounted () {
+
   }
 }
 </script>

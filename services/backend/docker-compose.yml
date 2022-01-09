@@ -22,10 +22,7 @@ services:
         networks:
             - sail
         depends_on:
-            - mysql
-            - redis
-            - meilisearch
-            - selenium
+            - mongodb
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
