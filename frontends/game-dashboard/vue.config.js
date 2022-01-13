@@ -1,5 +1,6 @@
 module.exports = {
   devServer: {
-    host: 'game-dashboard.game.test'
+    host: 'game-dashboard.game.test',
+    port: 8093
   }
 }

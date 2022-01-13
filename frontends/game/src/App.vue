@@ -1,6 +1,6 @@
 <template>
   <div id="nav">
-    <h1>Game-Dashboard</h1>
+    <h1>Game-Website</h1>
     <router-link to="/">Home</router-link>
     |
     <router-link to="/about">About</router-link>
