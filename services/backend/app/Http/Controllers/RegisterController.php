@@ -8,6 +8,6 @@ class RegisterController extends Controller
 {
     public function register(Request $request)
     {
-        dd($request->all());
+        return response()->json(["foo" => "bar"]);
     }
 }

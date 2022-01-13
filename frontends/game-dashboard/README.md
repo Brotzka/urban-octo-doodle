@@ -1,4 +1,4 @@
-# game-dashboard
+# test
 
 ## Project setup
 ```
