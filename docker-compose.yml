@@ -20,33 +20,31 @@ services:
       - './docker/db/sql:/docker-entrypoint-initdb.d'
     networks:
       - webgame
-#  webgame-redis:
-#    container_name: webgame-redis
-#    image: 'redis:alpine'
-#    ports:
-#      - '6379:6379'
-#    volumes:
-#      - 'webgameredis:/data'
-#    networks:
-#      - webgame
-#    healthcheck:
-#      test: [ "CMD", "redis-cli", "ping" ]
-#      retries: 3
-#      timeout: 5s
-#  webgame-mongodb:
-#    container_name: webgame-mongodb
-#    image: 'mongo:4.4'
-#    restart: always
-#    ports:
-#      - "27071:27017"
-#    environment:
-#      MONGO_INITDB_ROOT_USERNAME: 'root'
-#      MONGO_INITDB_ROOT_PASSWORD: 'root-webgame'
-#      MONGO_INITDB_DATABASE: 'webgame'
-#    volumes:
-#      - 'webgamemongo:/data/db'
-#    networks:
-#      - webgame
+  webgame-mongodb:
+    container_name: webgame-mongodb
+    image: 'mongo:latest'
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 'root'
+      MONGO_INITDB_ROOT_PASSWORD: 'root-webgame'
+    volumes:
+      - './docker/mongodb:/data/db'
+    networks:
+      - webgame
+  webgame-redis:
+    container_name: webgame-redis
+    image: 'redis:alpine'
+    ports:
+      - '6379:6379'
+    volumes:
+      - './docker/redis:/data'
+    networks:
+      - webgame
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      retries: 3
+      timeout: 5s
 
 networks:
   webgame:
