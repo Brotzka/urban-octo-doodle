@@ -20,6 +20,7 @@ services:
       - './docker/db/sql:/docker-entrypoint-initdb.d'
     networks:
       - webgame
+    restart: always
   webgame-mongodb:
     container_name: webgame-mongodb
     image: 'mongo:latest'
@@ -32,6 +33,7 @@ services:
       - './docker/mongodb:/data/db'
     networks:
       - webgame
+    restart: always
   webgame-redis:
     container_name: webgame-redis
     image: 'redis:alpine'
@@ -45,6 +47,7 @@ services:
       test: [ "CMD", "redis-cli", "ping" ]
       retries: 3
       timeout: 5s
+    restart: always
 
 networks:
   webgame:
