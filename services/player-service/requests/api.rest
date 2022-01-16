@@ -1,0 +1,22 @@
+# Find a player by ID
+GET http://localhost:8090/players/6
+Accept: application/json
+
+###
+# @name DeleteAllPlayers
+DELETE http://localhost:8090/players
+Content-Type: application/json
+### Create a new player
+# @name CreatePlayer
+POST http://localhost:8090/players
+Content-Type: application/json
+
+{
+  "username": "Handafsgfssdaasais",
+  "email": "fabianasdfasgffssaass@faaren.com",
+  "password": "Passwort",
+  "name": "Dingens"
+}
+###
+
+
