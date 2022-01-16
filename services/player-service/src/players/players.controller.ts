@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   Param,
-  ParseIntPipe,
   Patch,
   Post,
 } from '@nestjs/common';
@@ -12,6 +11,7 @@ import { PlayersService } from './players.service';
 import { CreatePlayerDto } from './dto/create-player.dto';
 import { Player } from './interfaces/player.interface';
 import { UpdatePlayerDto } from './dto/update-player.dto';
+import { IsNumberStringUrlValidator } from './validators/urls/isNumberString.url-validator';
 
 @Controller('players')
 export class PlayersController {
@@ -23,14 +23,13 @@ export class PlayersController {
   }
 
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number) {
-    console.log(id);
-    return await this.playerService.findOne(id);
+  async findOne(@Param() params: IsNumberStringUrlValidator) {
+    return await this.playerService.findOne(params.id);
   }
 
   @Delete(':id')
-  async delete(@Param('id', ParseIntPipe) id: number) {
-    await this.playerService.delete(id);
+  async delete(@Param() params: IsNumberStringUrlValidator) {
+    await this.playerService.delete(params.id);
   }
 
   @Post()
@@ -40,9 +39,9 @@ export class PlayersController {
 
   @Patch(':id')
   async update(
-    @Param('id', ParseIntPipe) id: number,
+    @Param() params: IsNumberStringUrlValidator,
     @Body() updatePlayerDto: UpdatePlayerDto,
   ) {
-    return this.playerService.update(id, updatePlayerDto);
+    return this.playerService.update(params.id, updatePlayerDto);
   }
 }

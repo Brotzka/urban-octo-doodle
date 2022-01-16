@@ -46,8 +46,14 @@ export class Player {
   private currentPassword: string;
 
   @BeforeInsert()
-  @BeforeUpdate()
   async hashPassword() {
+    if (this.password) {
+      this.password = await bcrypt.hash(this.password, 10);
+    }
+  }
+
+  @BeforeUpdate()
+  async updatePassword() {
     if (this.password) {
       console.log('Password is set!');
       if (!(await bcrypt.compare(this.password, this.currentPassword))) {
