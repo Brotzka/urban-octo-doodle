@@ -5,11 +5,13 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { PlayersService } from './players.service';
 import { CreatePlayerDto } from './dto/create-player.dto';
 import { Player } from './interfaces/player.interface';
+import { UpdatePlayerDto } from './dto/update-player.dto';
 
 @Controller('players')
 export class PlayersController {
@@ -27,12 +29,20 @@ export class PlayersController {
   }
 
   @Delete(':id')
-  async delete(@Param() params) {
-    await this.playerService.delete(params.id);
+  async delete(@Param('id', ParseIntPipe) id: number) {
+    await this.playerService.delete(id);
   }
 
   @Post()
   async create(@Body() createPlayerDto: CreatePlayerDto) {
     return this.playerService.create(createPlayerDto);
+  }
+
+  @Patch(':id')
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updatePlayerDto: UpdatePlayerDto,
+  ) {
+    return this.playerService.update(id, updatePlayerDto);
   }
 }

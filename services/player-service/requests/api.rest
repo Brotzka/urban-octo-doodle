@@ -12,11 +12,18 @@ POST http://localhost:8090/players
 Content-Type: application/json
 
 {
-  "username": "Handafsgfssdaasais",
-  "email": "fabianasdfasgffssaass@faaren.com",
+  "username": "Brotzka",
+  "email": "fabian.hagen@faaren.com",
   "password": "Passwort",
   "name": "Dingens"
 }
 ###
+# @name CreatePlayer
+PATCH http://localhost:8090/players/5
+Content-Type: application/json
 
+{
+  "password": "Passwort"
+}
+###
 

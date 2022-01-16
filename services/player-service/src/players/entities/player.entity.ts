@@ -5,14 +5,14 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BeforeInsert,
+  BeforeUpdate,
+  AfterLoad,
 } from 'typeorm';
 
 import * as bcrypt from 'bcrypt';
 
 @Entity({ name: 'players' })
 export class Player {
-  readonly saltOrRounds = 10;
-
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -43,8 +43,24 @@ export class Player {
   })
   updated_at: 'datetime';
 
+  private currentPassword: string;
+
   @BeforeInsert()
+  @BeforeUpdate()
   async hashPassword() {
-    this.password = await bcrypt.hash(this.password, this.saltOrRounds);
+    if (this.password) {
+      console.log('Password is set!');
+      if (!(await bcrypt.compare(this.password, this.currentPassword))) {
+        console.log('Password has changed!');
+        this.password = await bcrypt.hash(this.password, 10);
+      } else {
+        console.log('Password has not changed!');
+      }
+    }
+  }
+
+  @AfterLoad()
+  private loadCurrentPassword(): void {
+    this.currentPassword = this.password;
   }
 }

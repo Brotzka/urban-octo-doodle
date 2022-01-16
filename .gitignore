@@ -2,3 +2,4 @@
 mongo-db
 mongo-db/*
 */.idea
+.idea/*
