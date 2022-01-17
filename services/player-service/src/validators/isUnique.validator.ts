@@ -1,36 +1,28 @@
 import {
-  registerDecorator,
   ValidationArguments,
-  ValidationOptions,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
 } from 'class-validator';
 import { randomInt } from 'crypto';
 import { getConnection, getManager } from 'typeorm';
-import { Player } from '../players/entities/player.entity';
 
-export function IsUniqueInTable(
-  table: string,
-  validationOptions?: ValidationOptions,
-) {
-  return function (object: Object, propertyName: string) {
-    registerDecorator({
-      name: 'isUniqueInTable',
-      target: object.constructor,
-      propertyName: propertyName,
-      constraints: [table],
-      options: validationOptions,
-      validator: {
-        async validate(value: any, args: ValidationArguments) {
-          const count = await getConnection()
-            .createQueryBuilder()
-            .from(table, table)
-            .where(args.property + ' = :value', {
-              value: args.value,
-            })
-            .getCount();
-          console.log('Count: ', count);
-          return count === 0;
-        },
-      },
-    });
-  };
+@ValidatorConstraint({ name: 'customText', async: false })
+export class IsUniqueOnTable implements ValidatorConstraintInterface {
+  validate(value: any, validationArguments?: ValidationArguments) {
+    // const count = await getConnection()
+    //     .createQueryBuilder()
+    //     .from(table, table)
+    //     .where(args.property + ' = :value', {
+    //       value: args.value,
+    //     })
+    //     .getCount();
+    console.log(this, validationArguments, value);
+    const count = randomInt(0, 20);
+    console.log('Count: ', count);
+    return count === 0;
+  }
+
+  defaultMessage(validationArguments?: ValidationArguments): string {
+    return '';
+  }
 }

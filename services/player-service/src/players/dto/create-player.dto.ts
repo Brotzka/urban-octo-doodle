@@ -1,9 +1,9 @@
-import { IsEmail, IsNotEmpty, Min } from 'class-validator';
-import { IsUniqueInTable } from '../../validators/isUnique.validator';
+import { IsEmail, IsNotEmpty, Validate } from 'class-validator';
+import { IsUniqueOnTable } from '../../validators/isUnique.validator';
 
 export class CreatePlayerDto {
   @IsNotEmpty()
-  @IsUniqueInTable('players', {})
+  @Validate(IsUniqueOnTable, ['players'], {})
   readonly username: string;
 
   @IsEmail()
